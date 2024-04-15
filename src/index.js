@@ -152,9 +152,10 @@ app.post('/alumno', (req,res)=>{
 
 
 app.delete('/alumno', (req, res) => {
-    let dni = req.body.DNI; 
-    console.log(dni)
-    let index = alumnosArray.findIndex(alumno => alumno.dni === dni);
+    let dni = parseInt(req.body.DNI); 
+    console.log('dni', dni)
+    let index = alumnosArray.findIndex(Alumno => Alumno.DNI === dni);
+    console.log('index', index)
     if (index !== -1) {
         alumnosArray.splice(index, 1);
         res.status(200).send("Alumno eliminado correctamente");
