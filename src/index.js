@@ -123,3 +123,42 @@ app.get('/omdb-wrapper/OMDBGetByImdbID',async (req,res)=>{
     //console.log(respuesta)
     res.status(200).send(returnResult);
 })
+
+const alumnosArray = [ ]; 
+alumnosArray.push(new Alumno("Esteban Dido" , 22888444 ,20)); 
+alumnosArray.push(new Alumno("Matias Queroso", 28946255 , 51)); 
+alumnosArray.push(new Alumno("Elba Calao" , 32623391 ,18));
+
+app.get('/alumno', (req,res)=>{
+    res.status(200).send(alumnosArray);
+})
+
+app.get('/alumno/:dni', (req,res)=>{
+    let Dni = parseInt(req.params.dni);
+    let alumnoEncontrado = alumnosArray.find(Alumno => Alumno.DNI === Dni);
+    console.log('alumnoEncontrado', alumnoEncontrado);
+    if (alumnoEncontrado) {
+        res.status(200).send(alumnoEncontrado);
+    } else {
+        res.status(404).send("Alumno no encontrado");
+    }
+})
+
+app.post('/alumno', (req,res)=>{
+    let persona = req.body;
+    alumnosArray.push(persona);
+    res.status(201).send(persona);
+})
+
+
+app.delete('/alumno', (req, res) => {
+    let dni = req.body.DNI; 
+    console.log(dni)
+    let index = alumnosArray.findIndex(alumno => alumno.dni === dni);
+    if (index !== -1) {
+        alumnosArray.splice(index, 1);
+        res.status(200).send("Alumno eliminado correctamente");
+    } else {
+        res.status(404).send("Alumno no encontrado");
+    }
+});

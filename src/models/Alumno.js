@@ -8,7 +8,6 @@ export default class Alumno {
     toString(){
         return 'soy ' + this.Username + ' y  mi DNI es ' + this.DNI;
     }
-
 }
 
 export {Alumno}
